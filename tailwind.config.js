@@ -1,3 +1,5 @@
+import formsPlugin from "@tailwindcss/forms";
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -8,10 +10,11 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      primary: "#FE5B18",
+      primary: "#F97316",
       dark: "#201A18",
       gray: "#A7A19E",
       white: "#FFFFFF",
+      red: "#EF4444",
     },
     extend: {
       height: {
@@ -19,5 +22,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [formsPlugin],
 };
