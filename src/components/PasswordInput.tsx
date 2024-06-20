@@ -8,7 +8,6 @@ const PasswordInput = (props: InputProps) => {
 
   return (
     <Input
-      {...props}
       type={isOpen ? "text" : "password"}
       rightSection={
         <Button
@@ -20,6 +19,7 @@ const PasswordInput = (props: InputProps) => {
           {isOpen ? <Eye /> : <EyeOff />}
         </Button>
       }
+      {...props}
     />
   );
 };

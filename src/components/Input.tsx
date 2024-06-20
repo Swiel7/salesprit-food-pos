@@ -3,7 +3,7 @@ import { LucideIcon } from "lucide-react";
 import React from "react";
 
 const inputVariants = cva(
-  "block peer w-full px-4 text-dark transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-gray disabled:opacity-10 border-gray/30 bg-transparent h-12 pb-1 pt-5 text-sm",
+  "block peer w-full px-4 text-dark transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-gray disabled:opacity-10 border-gray/30 bg-white h-12 text-sm placeholder:text-gray",
   {
     variants: {
       variant: {
@@ -33,6 +33,7 @@ const Input = (props: InputProps) => {
     error,
     variant,
     rightSection,
+    placeholder,
     ...inputProps
   } = props;
 
@@ -48,9 +49,10 @@ const Input = (props: InputProps) => {
               : "focus:border-primary focus:ring-primary",
             icon && "pl-12",
             rightSection && "pr-12",
+            label && "pb-1 pt-5",
           )}
+          placeholder={label ? "" : placeholder}
           {...inputProps}
-          placeholder=""
         />
         {label && (
           <label

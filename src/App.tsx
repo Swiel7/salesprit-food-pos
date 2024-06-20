@@ -1,8 +1,19 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthPage, ErrorPage } from "./pages";
+import { AuthPage, ErrorPage, MenuPage } from "./pages";
 import { LoginForm, RegisterForm } from "./features/auth";
+import { Dashboard } from "./layout";
 
 const router = createBrowserRouter([
+  {
+    element: <Dashboard />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <MenuPage />,
+      },
+    ],
+  },
   {
     element: <AuthPage />,
     errorElement: <ErrorPage />,
