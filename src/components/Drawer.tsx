@@ -98,7 +98,7 @@ const Body = (props: React.ComponentPropsWithoutRef<"div">) => {
   const { className, children, ...restProps } = props;
 
   return (
-    <div className={cx("grow p-6", className)} {...restProps}>
+    <div className={cx("flex grow flex-col p-6", className)} {...restProps}>
       {children}
     </div>
   );

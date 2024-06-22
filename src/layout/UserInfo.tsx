@@ -1,16 +1,15 @@
 import { avatar } from "../assets";
-import { buttonVariants } from "../components/Button";
 
 const UserInfo = () => {
   return (
-    <div className={buttonVariants({ variant: "outlined" })}>
+    <div className="flex items-center gap-2.5">
       <img
         src={avatar}
         alt="Avatar"
-        className="h-9 w-9 rounded-full object-cover"
+        className="h-10 w-10 rounded-full object-cover"
         referrerPolicy="no-referrer"
       />
-      <span>Robert Allen</span>
+      <span className="hidden text-sm text-dark sm:inline">Robert Allen</span>
     </div>
   );
 };

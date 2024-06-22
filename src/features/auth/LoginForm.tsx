@@ -19,14 +19,14 @@ const LoginForm = () => {
         <Input
           type="email"
           name="email"
-          label="Email address"
+          placeholder="Email address"
           autoComplete="email"
           // disabled={}
           // error={}
         />
         <PasswordInput
           name="password"
-          label="Password"
+          placeholder="Password"
           // disabled={}
           // error={}
         />

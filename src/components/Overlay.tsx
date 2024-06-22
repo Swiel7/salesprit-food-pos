@@ -6,7 +6,7 @@ const Overlay = (props: React.ComponentPropsWithoutRef<"div">) => {
   return (
     <div
       className={cx(
-        "fixed inset-0 z-40 bg-gray/20 backdrop-blur-sm",
+        "fixed inset-0 z-40 bg-dark/30 backdrop-blur-sm",
         className,
       )}
       {...restProps}

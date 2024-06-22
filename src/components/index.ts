@@ -5,6 +5,6 @@ export { default as Checkbox } from "./Checkbox";
 export { default as Anchor } from "./Anchor";
 export { default as Logo } from "./Logo";
 export { default as Select } from "./Select";
-export { default as Dropdown } from "./Dropdown";
 export { default as Drawer } from "./Drawer";
 export { default as Overlay } from "./Overlay";
+export { default as SearchBar } from "./SearchBar";

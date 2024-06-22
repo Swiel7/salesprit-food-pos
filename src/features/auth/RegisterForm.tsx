@@ -4,7 +4,7 @@ import { anchorStyles } from "../../components/Anchor";
 
 type TInput = {
   name: string;
-  label: string;
+  placeholder: string;
   type: React.HTMLInputTypeAttribute;
   autoComplete?: React.HTMLInputAutoCompleteAttribute;
   error: string | string[];
@@ -14,34 +14,34 @@ const RegisterForm = () => {
   const inputs: TInput[] = [
     {
       name: "name",
-      label: "Name",
+      placeholder: "Name",
       type: "text",
       autoComplete: "name",
       error: "",
     },
     {
       name: "email",
-      label: "Email address",
+      placeholder: "Email address",
       type: "email",
       autoComplete: "email",
       error: "",
     },
     {
       name: "phone",
-      label: "Phone number",
+      placeholder: "Phone number",
       type: "tel",
       autoComplete: "tel",
       error: "",
     },
     {
       name: "password",
-      label: "Password",
+      placeholder: "Password",
       type: "password",
       error: "",
     },
     {
       name: "confirmPassword",
-      label: "Confirm password",
+      placeholder: "Confirm password",
       type: "password",
       error: "",
     },

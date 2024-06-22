@@ -8,7 +8,7 @@ const MobileNav = () => {
   return (
     <Drawer>
       <Drawer.Trigger>
-        <Button variant="gray" className="xl:hidden">
+        <Button variant="transparent" className="xl:hidden">
           <MenuIcon />
         </Button>
       </Drawer.Trigger>

@@ -23,8 +23,8 @@ const Menu = ({ onClick: handleClick }: { onClick?: () => void }) => {
   const logout = () => console.log("logout");
 
   return (
-    <nav>
-      <ul className="space-y-3">
+    <nav className="flex grow flex-col">
+      <ul className="flex grow flex-col gap-3">
         {routes.map((route) => (
           <li key={route.label}>
             <NavLink
@@ -44,14 +44,14 @@ const Menu = ({ onClick: handleClick }: { onClick?: () => void }) => {
             </NavLink>
           </li>
         ))}
-        <li>
+        <li className="mt-auto">
           <Button
-            variant="transparent"
+            variant="outlined"
             onClick={() => {
               handleClick?.();
               logout();
             }}
-            className="mt-auto w-full [&]:justify-start"
+            className="w-full [&]:justify-start"
           >
             <LogOut />
             Log out
