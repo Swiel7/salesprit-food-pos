@@ -1,5 +1,11 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthPage, ErrorPage, MenuPage } from "./pages";
+import {
+  AuthPage,
+  ErrorPage,
+  MenuPage,
+  OrderDetailsPage,
+  OrdersPage,
+} from "./pages";
 import { LoginForm, RegisterForm } from "./features/auth";
 import { Dashboard } from "./layout";
 
@@ -12,6 +18,16 @@ const router = createBrowserRouter([
         path: "/",
         element: <MenuPage />,
         handle: { title: "Menu" },
+      },
+      {
+        path: "/orders",
+        element: <OrdersPage />,
+        handle: { title: "Orders" },
+      },
+      {
+        path: "/orders/:orderId",
+        element: <OrderDetailsPage />,
+        handle: { title: "Order details" },
       },
     ],
   },

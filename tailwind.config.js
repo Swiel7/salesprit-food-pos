@@ -36,6 +36,7 @@ export default {
       },
       white: "#ffffff",
       red: "#ef4444",
+      green: "#3fc28a",
     },
     extend: {
       height: {

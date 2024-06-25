@@ -5,7 +5,7 @@ const Card = (props: React.ComponentPropsWithoutRef<"div">) => {
 
   return (
     <div
-      className={cx("rounded-lg bg-white p-5 shadow", className)}
+      className={cx("rounded-lg bg-white p-4 shadow sm:p-5", className)}
       {...restProps}
     >
       {children}
