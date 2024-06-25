@@ -10,11 +10,32 @@ export default {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      primary: "#F97316",
-      dark: "#201A18",
-      gray: "#A7A19E",
-      white: "#FFFFFF",
-      red: "#EF4444",
+      primary: {
+        50: "#fff8f3",
+        100: "#fef1e8",
+        200: "#fee3d0",
+        300: "#fa8f45",
+        400: "#fa812d",
+        500: "#f97316",
+      },
+      dark: {
+        50: "#f5f3f2",
+        100: "#ece7e5",
+        200: "#d8cecb",
+        300: "#54443f",
+        400: "#3a2f2b",
+        500: "#201a18",
+      },
+      gray: {
+        50: "#fbfafa",
+        100: "#f6f6f5",
+        200: "#e5e3e2",
+        300: "#b9b4b1",
+        400: "#b0aaa8",
+        500: "#a7a19e",
+      },
+      white: "#ffffff",
+      red: "#ef4444",
     },
     extend: {
       height: {

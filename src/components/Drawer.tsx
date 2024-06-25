@@ -7,6 +7,7 @@ import {
   cloneElement,
   createContext,
   useContext,
+  useEffect,
 } from "react";
 import Button, { ButtonProps } from "./Button";
 import { X } from "lucide-react";
@@ -28,6 +29,15 @@ type DrawerProps = { children: ReactNode; position?: "left" | "right" };
 const Drawer = (props: DrawerProps) => {
   const { children, position = "left" } = props;
   const { open, close, isOpen } = useToggle(false);
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   return (
     <DrawerContext.Provider value={{ open, close, isOpen, position }}>
@@ -83,7 +93,7 @@ const Header = (props: React.ComponentPropsWithoutRef<"header">) => {
 
   return (
     <header
-      className={cx("flex items-center p-6 pb-0", className)}
+      className={cx("flex items-center px-5 pt-3", className)}
       {...restProps}
     >
       {children}
@@ -98,7 +108,10 @@ const Body = (props: React.ComponentPropsWithoutRef<"div">) => {
   const { className, children, ...restProps } = props;
 
   return (
-    <div className={cx("flex grow flex-col p-6", className)} {...restProps}>
+    <div
+      className={cx("flex grow flex-col p-5 pt-1", className)}
+      {...restProps}
+    >
       {children}
     </div>
   );

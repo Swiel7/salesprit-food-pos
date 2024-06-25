@@ -7,7 +7,7 @@ const Checkbox = (props: React.InputHTMLAttributes<HTMLInputElement>) => {
     <input
       type="checkbox"
       className={cx(
-        "h-5 w-5 rounded border-gray/30 text-primary focus:ring-primary",
+        "border-gray-200 text-primary-500 focus:ring-primary-500 h-5 w-5 rounded",
         className,
       )}
       {...checkboxProps}

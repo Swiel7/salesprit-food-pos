@@ -15,7 +15,7 @@ const Input = (props: InputProps) => {
   return (
     <div>
       {label && (
-        <label htmlFor={label} className="mb-1.5 block text-sm text-dark">
+        <label htmlFor={label} className="text-dark-500 mb-1.5 block text-sm">
           {label}
         </label>
       )}
@@ -23,10 +23,10 @@ const Input = (props: InputProps) => {
         <input
           id={label}
           className={cx(
-            "peer block h-12 w-full rounded-lg border-gray/30 bg-white px-4 text-sm text-gray transition-colors duration-300 placeholder:text-gray disabled:cursor-not-allowed disabled:bg-gray disabled:opacity-10",
+            "border-gray-200 text-gray-500 placeholder:text-gray-500 disabled:bg-gray-500 peer block h-12 w-full rounded-lg bg-white px-4 text-sm transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-10",
             error
               ? "!border-red focus:ring-red"
-              : "focus:border-primary focus:ring-primary",
+              : "focus:border-primary-500 focus:ring-primary-500",
             icon && "pl-12",
             rightSection && "pr-12",
             className,
@@ -34,7 +34,7 @@ const Input = (props: InputProps) => {
           {...inputProps}
         />
         {props.icon && (
-          <props.icon className="absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2 text-gray" />
+          <props.icon className="text-gray-500 absolute left-4 top-1/2 h-6 w-6 -translate-y-1/2" />
         )}
         {rightSection &&
           React.cloneElement(rightSection, {

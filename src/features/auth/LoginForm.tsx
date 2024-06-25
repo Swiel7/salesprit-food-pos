@@ -8,10 +8,10 @@ const LoginForm = () => {
   return (
     <form className="space-y-6">
       <div>
-        <h1 className="mb-2 text-2xl font-bold text-dark sm:text-3xl">
+        <h1 className="text-dark-500 mb-2 text-2xl font-bold sm:text-3xl">
           Welcome back!
         </h1>
-        <p className="text-sm text-gray sm:text-base">
+        <p className="text-gray-500 text-sm sm:text-base">
           Please login to your account
         </p>
       </div>
@@ -32,7 +32,10 @@ const LoginForm = () => {
         />
         <div className="flex items-center gap-2.5">
           <Checkbox name="remember" id="remember" />
-          <label htmlFor="remember" className="text-sm text-dark sm:text-base">
+          <label
+            htmlFor="remember"
+            className="text-dark-500 text-sm sm:text-base"
+          >
             Remember me
           </label>
         </div>
@@ -40,7 +43,7 @@ const LoginForm = () => {
       <Button loading={false} className="w-full">
         Sign in
       </Button>
-      <span className="flex items-center text-sm text-dark before:mr-2 before:inline-block before:h-px before:grow before:bg-gray/30 after:ml-2 after:inline-block after:h-px after:grow after:bg-gray/30 sm:text-base">
+      <span className="text-dark-500 before:bg-gray-200 after:bg-gray-200 flex items-center text-sm before:mr-2 before:inline-block before:h-px before:grow after:ml-2 after:inline-block after:h-px after:grow sm:text-base">
         Continue with
       </span>
       <div className="flex gap-5">
@@ -53,7 +56,7 @@ const LoginForm = () => {
           // disabled={isSubmitting}
         />
       </div>
-      <p className="text-sm text-dark sm:text-base">
+      <p className="text-dark-500 text-sm sm:text-base">
         Don't have an account?{" "}
         <Link to="/register" className={anchorStyles}>
           Sign up

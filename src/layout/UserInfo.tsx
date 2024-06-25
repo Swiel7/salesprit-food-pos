@@ -9,7 +9,9 @@ const UserInfo = () => {
         className="h-10 w-10 rounded-full object-cover"
         referrerPolicy="no-referrer"
       />
-      <span className="hidden text-sm text-dark sm:inline">Robert Allen</span>
+      <span className="text-dark-500 hidden text-sm font-medium sm:inline">
+        Robert Allen
+      </span>
     </div>
   );
 };

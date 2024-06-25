@@ -8,3 +8,5 @@ export { default as Select } from "./Select";
 export { default as Drawer } from "./Drawer";
 export { default as Overlay } from "./Overlay";
 export { default as SearchBar } from "./SearchBar";
+export { default as Card } from "./Card";
+export { default as IconButton } from "./IconButton";

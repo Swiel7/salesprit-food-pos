@@ -1,11 +1,11 @@
 import { VariantProps, cva, cx } from "class-variance-authority";
 
 const selectVariants = cva(
-  "w-full rounded-lg px-4 text-dark transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-gray disabled:opacity-10 border-gray/30 bg-white text-sm placeholder:text-gray focus:border-primary focus:ring-primary",
+  "rounded-lg text-dark-500 transition-colors duration-300 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:opacity-10 border-gray-200 bg-white text-sm placeholder:text-gray-500 focus:border-primary-500 focus:ring-primary-500 font-normal",
   {
     variants: {
       size: {
-        sm: "h-10",
+        sm: "h-9",
         lg: "h-12",
       },
     },

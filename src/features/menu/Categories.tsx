@@ -35,7 +35,7 @@ const Categories = () => {
         <li key={category.name}>
           <Link
             className={buttonVariants({
-              variant: category.name !== selected ? "outlined" : "gray",
+              variant: category.name !== selected ? "outlined" : "primary",
               className: "w-full",
             })}
             to={`?category=${category.name}`}

@@ -3,21 +3,26 @@ import { VariantProps, cva, cx } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap gap-2.5 rounded-lg px-3 xl:px-4 leading-none transition-colors duration-300 outline-none ring-offset-2 focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50 h-12 text-sm sm:text-base",
+  "inline-flex items-center justify-center whitespace-nowrap gap-2.5 rounded-lg px-3 xl:px-4 leading-none transition-colors duration-300 outline-none ring-offset-2 focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50 text-sm sm:text-base font-medium",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary text-white hover:bg-primary/90 focus-visible:bg-primary/90 ring-primary",
-        gray: "bg-gray/10  hover:bg-gray/20 focus-visible:bg-gray/20 text-dark ring-gray/20",
+          "bg-primary-500 text-white hover:bg-primary-400 focus-visible:bg-primary-400 ring-primary-500",
+        gray: "bg-gray-200 hover:bg-gray-300 focus-visible:bg-gray-300 text-dark-500 ring-gray-300",
         transparent:
-          "text-dark hover:bg-dark/5 focus-visible:bg-dark/5 ring-gray/5",
+          "text-dark-500 hover:bg-dark-50 focus-visible:bg-dark-50 ring-gray-50",
         outlined:
-          "border border-gray/30  hover:bg-gray/10 focus-visible:bg-gray/10 text-dark ring-gray/10 bg-white",
+          "border border-gray-200 hover:bg-gray-100 focus-visible:bg-gray-100 text-dark-500 ring-gray-100 bg-white",
+      },
+      size: {
+        sm: "h-10",
+        lg: "h-12",
       },
     },
     defaultVariants: {
       variant: "primary",
+      size: "lg",
     },
   },
 );
@@ -32,6 +37,7 @@ const Button = (props: ButtonProps) => {
     children,
     className,
     variant,
+    size,
     loading,
     disabled = loading,
     ...buttonProps
@@ -39,7 +45,7 @@ const Button = (props: ButtonProps) => {
 
   return (
     <button
-      className={cx(buttonVariants({ variant, className }))}
+      className={cx(buttonVariants({ variant, size, className }))}
       disabled={disabled}
       {...buttonProps}
     >

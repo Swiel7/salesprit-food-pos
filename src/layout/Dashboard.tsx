@@ -3,10 +3,10 @@ import { Navbar, Header } from ".";
 
 const Dashboard = () => {
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr] bg-gray/5 xl:h-screen xl:grid-cols-[260px_1fr]">
+    <div className="bg-gray-50 grid min-h-screen grid-rows-[auto_1fr] xl:h-screen xl:grid-cols-[260px_1fr]">
       <Navbar />
       <Header />
-      <main className="grid">
+      <main className="grid min-h-0">
         <Outlet />
       </main>
     </div>

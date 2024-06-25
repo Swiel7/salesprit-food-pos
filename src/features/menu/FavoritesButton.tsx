@@ -14,9 +14,9 @@ const FavoritesButton = ({ product, isFavorite }: FavoritesButtonProps) => {
         value={favorite ? "false" : "true"}
       >
         {favorite ? (
-          <Heart size={16} className="fill-red" strokeWidth={0} />
+          <Heart size={16} className="fill-red stroke-red" />
         ) : (
-          <Heart size={16} className="text-dark" />
+          <Heart size={16} className="stroke-dark-500" />
         )}
       </button>
       <input name="product" readOnly hidden value={JSON.stringify(product)} />

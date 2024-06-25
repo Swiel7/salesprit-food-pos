@@ -1,5 +1,5 @@
 import { Menu as MenuIcon } from "lucide-react";
-import { Button, Drawer, Logo } from "../components";
+import { Drawer, IconButton, Logo } from "../components";
 import Menu from "./Menu";
 import { useContext } from "react";
 import { DrawerContext } from "../components/Drawer";
@@ -8,15 +8,15 @@ const MobileNav = () => {
   return (
     <Drawer>
       <Drawer.Trigger>
-        <Button variant="transparent" className="xl:hidden">
+        <IconButton variant="transparent" className="xl:hidden">
           <MenuIcon />
-        </Button>
+        </IconButton>
       </Drawer.Trigger>
       <Drawer.Content>
-        <Drawer.Header>
+        <Drawer.Header className="!pt-5">
           <Logo />
         </Drawer.Header>
-        <Drawer.Body>
+        <Drawer.Body className="!pt-4">
           <MobileMenu />
         </Drawer.Body>
       </Drawer.Content>

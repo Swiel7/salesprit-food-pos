@@ -50,10 +50,10 @@ const RegisterForm = () => {
   return (
     <form className="space-y-6">
       <div>
-        <h1 className="mb-2 text-2xl font-bold text-dark sm:text-3xl">
+        <h1 className="text-dark-500 mb-2 text-2xl font-bold sm:text-3xl">
           Registration
         </h1>
-        <p className="text-sm text-gray sm:text-base">Create new account</p>
+        <p className="text-gray-500 text-sm sm:text-base">Create new account</p>
       </div>
       <div className="space-y-5">
         {inputs.map((props) =>
@@ -63,7 +63,7 @@ const RegisterForm = () => {
             <PasswordInput key={props.name} {...props} />
           ),
         )}
-        <p className="text-sm text-dark sm:text-base">
+        <p className="text-dark-500 text-sm sm:text-base">
           By signing below, you agree to the{" "}
           <Anchor href="https://www.google.pl/" target="_blank">
             Terms of use
@@ -77,7 +77,7 @@ const RegisterForm = () => {
       <Button loading={false} className="w-full">
         Sign up
       </Button>
-      <p className="text-sm text-dark sm:text-base">
+      <p className="text-dark-500 text-sm sm:text-base">
         Already have an account?{" "}
         <Link to="/login" className={anchorStyles}>
           Sign in

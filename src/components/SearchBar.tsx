@@ -1,6 +1,6 @@
 import { Form, useSearchParams } from "react-router-dom";
 import Input from "./Input";
-import Button from "./Button";
+import IconButton from "./IconButton";
 import { Search } from "lucide-react";
 
 const SearchBar = () => {
@@ -16,9 +16,9 @@ const SearchBar = () => {
         className="rounded-r-none"
         defaultValue={value}
       />
-      <Button className="rounded-l-none">
+      <IconButton className="rounded-l-none">
         <Search />
-      </Button>
+      </IconButton>
     </Form>
   );
 };

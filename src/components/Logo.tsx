@@ -3,7 +3,7 @@ import { logo } from "../assets";
 
 const Logo = () => {
   return (
-    <Link to="/" className="inline-block outline-offset-2 outline-primary">
+    <Link to="/" className="outline-primary-500 inline-block outline-offset-2">
       <img src={logo} alt="Salesprit logo" />
     </Link>
   );

@@ -6,3 +6,7 @@ export type TProduct = {
   price: number;
   rating: number;
 };
+
+export type TCartItem = Omit<TProduct, "category" | "rating"> & {
+  quantity: number;
+};
