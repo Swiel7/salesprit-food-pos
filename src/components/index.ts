@@ -11,3 +11,4 @@ export { default as SearchBar } from "./SearchBar";
 export { default as Card } from "./Card";
 export { default as IconButton } from "./IconButton";
 export { default as Badge } from "./Badge";
+export { default as FileButton } from "./FileButton";

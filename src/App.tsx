@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  AccountPage,
   AuthPage,
   ErrorPage,
   FavoritesPage,
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         path: "/favorites",
         element: <FavoritesPage />,
         handle: { title: "Favorites" },
+      },
+      {
+        path: "/account",
+        element: <AccountPage />,
+        handle: { title: "Account" },
       },
     ],
   },

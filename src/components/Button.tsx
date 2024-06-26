@@ -3,7 +3,7 @@ import { VariantProps, cva, cx } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap gap-2.5 rounded-lg px-3 xl:px-4 leading-none transition-colors duration-300 outline-none ring-offset-2 focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50 text-sm sm:text-base font-medium",
+  "inline-flex items-center justify-center whitespace-nowrap gap-2.5 rounded-lg px-3 xl:px-4 leading-none transition-colors duration-300 outline-none ring-offset-2 focus-visible:ring disabled:cursor-not-allowed disabled:opacity-50 text-sm tracking-wide",
   {
     variants: {
       variant: {
