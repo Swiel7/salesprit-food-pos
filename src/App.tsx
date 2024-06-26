@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
   AuthPage,
   ErrorPage,
+  FavoritesPage,
   MenuPage,
   OrderDetailsPage,
   OrdersPage,
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
         path: "/orders/:orderId",
         element: <OrderDetailsPage />,
         handle: { title: "Order details" },
+      },
+      {
+        path: "/favorites",
+        element: <FavoritesPage />,
+        handle: { title: "Favorites" },
       },
     ],
   },
