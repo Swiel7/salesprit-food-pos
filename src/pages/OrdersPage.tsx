@@ -29,7 +29,7 @@ const OrdersPage = () => {
 
   return (
     <section className="grid min-h-0 p-5 xl:p-6">
-      <Card className="hide-scrollbar overflow-auto p-0">
+      <Card className="hide-scrollbar overflow-auto !p-0">
         <OrderTable orders={orders} />
       </Card>
     </section>
