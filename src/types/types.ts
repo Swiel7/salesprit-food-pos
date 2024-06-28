@@ -29,3 +29,5 @@ export type TOrder = {
   date: number;
   address: string;
 };
+
+export type TWishlist = { id: string; items: TProduct[] };

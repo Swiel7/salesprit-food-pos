@@ -1,8 +1,25 @@
+import { useTransition } from "react";
 import Button, { ButtonProps } from "../../components/Button";
+import { loginWithOAuth } from "../../api/user";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const GoogleButton = (props: ButtonProps) => {
+  const [isLoading, startTransition] = useTransition();
+
+  const loginWithGoogle = async () => {
+    startTransition(() => {
+      loginWithOAuth(new GoogleAuthProvider());
+    });
+  };
+
   return (
-    <Button variant="outlined" type="button" {...props}>
+    <Button
+      variant="outlined"
+      type="button"
+      onClick={loginWithGoogle}
+      loading={isLoading}
+      {...props}
+    >
       <GoogleIcon />
       Google
     </Button>

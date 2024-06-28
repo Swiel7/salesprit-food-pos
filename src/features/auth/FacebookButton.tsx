@@ -1,8 +1,25 @@
+import { useTransition } from "react";
 import Button, { ButtonProps } from "../../components/Button";
+import { loginWithOAuth } from "../../api/user";
+import { FacebookAuthProvider } from "firebase/auth";
 
 const FacebookButton = (props: ButtonProps) => {
+  const [isLoading, startTransition] = useTransition();
+
+  const loginWithFacebook = async () => {
+    startTransition(() => {
+      loginWithOAuth(new FacebookAuthProvider());
+    });
+  };
+
   return (
-    <Button variant="outlined" type="button" {...props}>
+    <Button
+      variant="outlined"
+      type="button"
+      onClick={loginWithFacebook}
+      loading={isLoading}
+      {...props}
+    >
       <FacebookIcon />
       Facebook
     </Button>

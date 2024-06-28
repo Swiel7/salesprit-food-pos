@@ -1,69 +1,92 @@
-import { Link } from "react-router-dom";
+/* eslint-disable react-refresh/only-export-components */
+import {
+  ActionFunctionArgs,
+  Form,
+  Link,
+  useActionData,
+  useNavigation,
+} from "react-router-dom";
 import { Anchor, Button, Input, PasswordInput } from "../../components";
 import { anchorStyles } from "../../components/Anchor";
+import {
+  TRegisterErrors,
+  TRegisterSchema,
+  registerSchema,
+} from "../../schema/register-schema";
+import { register } from "../../api/user";
 
 type TInput = {
   name: string;
   placeholder: string;
   type: React.HTMLInputTypeAttribute;
   autoComplete?: React.HTMLInputAutoCompleteAttribute;
-  error: string | string[];
+};
+
+export const registerAction = async ({ request }: ActionFunctionArgs) => {
+  const formData = Object.fromEntries(await request.formData());
+  const result = registerSchema.safeParse(formData);
+
+  if (!result.success) return result.error.format();
+  return await register(result.data);
 };
 
 const RegisterForm = () => {
+  const errors = useActionData() as TRegisterErrors;
+  const { state } = useNavigation();
+  const isSubmitting = state === "submitting";
+
   const inputs: TInput[] = [
     {
       name: "name",
       placeholder: "Name",
       type: "text",
       autoComplete: "name",
-      error: "",
     },
     {
       name: "email",
       placeholder: "Email address",
       type: "email",
       autoComplete: "email",
-      error: "",
-    },
-    {
-      name: "phone",
-      placeholder: "Phone number",
-      type: "tel",
-      autoComplete: "tel",
-      error: "",
     },
     {
       name: "password",
       placeholder: "Password",
       type: "password",
-      error: "",
     },
     {
       name: "confirmPassword",
       placeholder: "Confirm password",
       type: "password",
-      error: "",
     },
   ];
 
   return (
-    <form className="space-y-6">
+    <Form method="post" className="space-y-6">
       <div>
-        <h1 className="text-dark-500 mb-2 text-2xl font-bold sm:text-3xl">
+        <h1 className="mb-2 text-2xl font-bold text-dark-500 sm:text-3xl">
           Registration
         </h1>
-        <p className="text-gray-500 text-sm sm:text-base">Create new account</p>
+        <p className="text-sm text-gray-500 sm:text-base">Create new account</p>
       </div>
       <div className="space-y-5">
         {inputs.map((props) =>
           props.type !== "password" ? (
-            <Input key={props.name} {...props} />
+            <Input
+              key={props.name}
+              disabled={isSubmitting}
+              error={errors?.[props.name as keyof TRegisterSchema]?._errors}
+              {...props}
+            />
           ) : (
-            <PasswordInput key={props.name} {...props} />
+            <PasswordInput
+              key={props.name}
+              disabled={isSubmitting}
+              error={errors?.[props.name as keyof TRegisterSchema]?._errors}
+              {...props}
+            />
           ),
         )}
-        <p className="text-dark-500 text-sm sm:text-base">
+        <p className="text-sm text-dark-500 sm:text-base">
           By signing below, you agree to the{" "}
           <Anchor href="https://www.google.pl/" target="_blank">
             Terms of use
@@ -74,16 +97,16 @@ const RegisterForm = () => {
           </Anchor>
         </p>
       </div>
-      <Button loading={false} className="w-full">
+      <Button loading={isSubmitting} className="w-full">
         Sign up
       </Button>
-      <p className="text-dark-500 text-sm sm:text-base">
+      <p className="text-sm text-dark-500 sm:text-base">
         Already have an account?{" "}
         <Link to="/login" className={anchorStyles}>
           Sign in
         </Link>
       </p>
-    </form>
+    </Form>
   );
 };
 

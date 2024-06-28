@@ -10,6 +10,8 @@ import {
 } from "./pages";
 import { LoginForm, RegisterForm } from "./features/auth";
 import { Dashboard } from "./layout";
+import { registerAction } from "./features/auth/RegisterForm";
+import { loginAction } from "./features/auth/LoginForm";
 
 const router = createBrowserRouter([
   {
@@ -50,10 +52,12 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterForm />,
+        action: registerAction,
       },
       {
         path: "/login",
         element: <LoginForm />,
+        action: loginAction,
       },
     ],
   },
