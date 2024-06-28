@@ -1,17 +1,43 @@
+/* eslint-disable react-refresh/only-export-components */
+import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
 import { SearchBar } from "../components";
 import { CartSidebar, MobileCart } from "../features/cart";
 import { Categories, Product } from "../features/menu";
 import { TProduct } from "../types/types";
+import { authorize } from "../api/user";
+import { User } from "firebase/auth";
+import { ProductService, WishlistService } from "../lib/firestore-service";
+
+export const menuLoader = async ({ request }: ActionFunctionArgs) => {
+  const user = (await authorize()) as User;
+
+  const url = new URL(request.url);
+  const category = url.searchParams.get("category");
+  const search = url.searchParams.get("search");
+
+  const wishlist = await WishlistService.getOne(user.uid);
+  const products = await ProductService.getAll();
+
+  if (search || (category && category !== "all")) {
+    const filteredProducts = products.filter((p) => {
+      if (search) return p.title.toLowerCase().includes(search.toLowerCase());
+      return p.category === category;
+    });
+
+    return { products: filteredProducts, wishlistItems: wishlist?.items };
+  }
+
+  return { products, wishlistItems: wishlist?.items };
+};
 
 const MenuPage = () => {
-  const products = Array.from({ length: 16 }, (_, i) => ({
-    id: i.toString(),
-    title: "Brown eggs",
-    category: "dairy",
-    image: "https://i.ibb.co/nn3t0HR/Raw-Organic-Brown-Eggs-in-a-Basket.jpg",
-    price: 2810,
-    rating: 4.2,
-  })) as TProduct[];
+  const { products, wishlistItems } = useLoaderData() as Record<
+    "products" | "wishlistItems",
+    TProduct[]
+  >;
+
+  const checkIsFavorite = (id: string) =>
+    !!wishlistItems?.find((item) => item.id === id);
 
   return (
     <section className="flex min-h-0 overflow-x-hidden p-5 xl:p-6">
@@ -24,12 +50,15 @@ const MenuPage = () => {
           <ul className="hide-scrollbar -m-3 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 overflow-y-auto p-3">
             {products.map((product) => (
               <li key={product.id}>
-                <Product product={product} isFavorite={true} />
+                <Product
+                  product={product}
+                  isFavorite={checkIsFavorite(product.id)}
+                />
               </li>
             ))}
           </ul>
         ) : (
-          <p className="text-dark-500 mt-4 text-center">
+          <p className="mt-4 text-center text-dark-500">
             No products were found matching your selection
           </p>
         )}

@@ -12,6 +12,7 @@ import { LoginForm, RegisterForm } from "./features/auth";
 import { Dashboard } from "./layout";
 import { registerAction } from "./features/auth/RegisterForm";
 import { loginAction } from "./features/auth/LoginForm";
+import { menuLoader } from "./pages/MenuPage";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         path: "/",
         element: <MenuPage />,
         handle: { title: "Menu" },
+        loader: menuLoader,
       },
       {
         path: "/orders",
