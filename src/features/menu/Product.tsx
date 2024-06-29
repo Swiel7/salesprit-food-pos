@@ -3,14 +3,22 @@ import { TProduct } from "../../types/types";
 import FavoritesButton from "./FavoritesButton";
 import { formatPrice } from "../../utils/helpers";
 import { Card, IconButton } from "../../components";
+import { toast } from "react-toastify";
+import { useAppSelector, useAppDispatch } from "../../lib/store";
+import { addItem } from "../cart/cart-slice";
 
 type ProductProps = { product: TProduct; isFavorite: boolean };
 
 const Product = ({ product, isFavorite }: ProductProps) => {
-  const { title, image, price, rating } = product;
+  const { title, image, price, rating, id } = product;
+  const { items } = useAppSelector((store) => store.cart);
+  const dispatch = useAppDispatch();
+
+  const isInCart = items.find((item) => item.id === id);
 
   const handleAddToCart = () => {
-    console.log("Product added to cart");
+    dispatch(addItem(product));
+    toast.success("Product added to cart");
   };
 
   return (
@@ -20,7 +28,7 @@ const Product = ({ product, isFavorite }: ProductProps) => {
         <FavoritesButton product={product} isFavorite={isFavorite} />
       </div>
       <div className="mt-4 flex flex-col gap-1">
-        <h3 className="text-dark-500 truncate font-medium">{title}</h3>
+        <h3 className="truncate font-medium text-dark-500">{title}</h3>
         <div className="flex">
           {Array.from({ length: 5 }, (_, index) => (
             <Star
@@ -36,13 +44,15 @@ const Product = ({ product, isFavorite }: ProductProps) => {
         </div>
         <span className="text-dark-500">{formatPrice(price)}</span>
       </div>
-      <IconButton
-        onClick={handleAddToCart}
-        className="absolute bottom-3 right-3"
-        size="sm"
-      >
-        <Plus />
-      </IconButton>
+      {!isInCart && (
+        <IconButton
+          onClick={handleAddToCart}
+          className="absolute bottom-3 right-3"
+          size="sm"
+        >
+          <Plus />
+        </IconButton>
+      )}
     </Card>
   );
 };

@@ -2,12 +2,16 @@ import { Trash2 } from "lucide-react";
 import { IconButton, Select } from "../../components";
 import { TCartItem } from "../../types/types";
 import { formatPrice } from "../../utils/helpers";
+import { ChangeEvent } from "react";
+import { useAppDispatch } from "../../lib/store";
+import { setQuantity, deleteItem } from "./cart-slice";
 
 const CartItem = ({ product }: { product: TCartItem }) => {
-  const { title, price, image, quantity } = product;
+  const { title, price, image, id, quantity } = product;
+  const dispatch = useAppDispatch();
 
   return (
-    <article className="text-dark-500 flex gap-3 text-sm xl:text-base">
+    <article className="flex gap-3 text-sm text-dark-500 xl:text-base">
       <img
         src={image}
         alt={title}
@@ -22,7 +26,9 @@ const CartItem = ({ product }: { product: TCartItem }) => {
             value: i + 1,
           }))}
           value={quantity}
-          onChange={() => console.log("change quantity")}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            dispatch(setQuantity({ id, quantity: e.target.value }))
+          }
         />
       </div>
       <div className="flex flex-col items-end">
@@ -30,7 +36,7 @@ const CartItem = ({ product }: { product: TCartItem }) => {
         <IconButton
           size="sm"
           variant="transparent"
-          onClick={() => console.log("delete item")}
+          onClick={() => dispatch(deleteItem(id))}
         >
           <Trash2 size={20} />
         </IconButton>

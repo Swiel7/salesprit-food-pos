@@ -1,8 +1,10 @@
 import { Card } from "../../components";
+import { useAppSelector } from "../../lib/store";
 import Cart from "./Cart";
 
 const CartSidebar = () => {
-  const isCartOpen: boolean = true;
+  const { items } = useAppSelector((store) => store.cart);
+  const isCartOpen = items.length > 0;
 
   return (
     <Card
@@ -12,7 +14,7 @@ const CartSidebar = () => {
           : "invisible w-0 px-0 opacity-0"
       } `}
     >
-      <h3 className="text-dark-500 mb-5 text-xl font-bold">Your Order</h3>
+      <h3 className="mb-5 text-xl font-bold text-dark-500">Your Order</h3>
       <Cart />
     </Card>
   );
