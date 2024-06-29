@@ -13,6 +13,8 @@ import { Dashboard } from "./layout";
 import { registerAction } from "./features/auth/RegisterForm";
 import { loginAction } from "./features/auth/LoginForm";
 import { menuLoader } from "./pages/MenuPage";
+import { favoritesLoader, favoritesAction } from "./pages/FavoritesPage";
+import { authLoader } from "./pages/AuthPage";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,8 @@ const router = createBrowserRouter([
         path: "/favorites",
         element: <FavoritesPage />,
         handle: { title: "Favorites" },
+        loader: favoritesLoader,
+        action: favoritesAction,
       },
       {
         path: "/account",
@@ -50,6 +54,7 @@ const router = createBrowserRouter([
   {
     element: <AuthPage />,
     errorElement: <ErrorPage />,
+    loader: authLoader,
     children: [
       {
         path: "/register",

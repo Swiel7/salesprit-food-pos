@@ -1,15 +1,16 @@
 /* eslint-disable react-refresh/only-export-components */
-import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
+import { ActionFunctionArgs, redirect, useLoaderData } from "react-router-dom";
 import { SearchBar } from "../components";
 import { CartSidebar, MobileCart } from "../features/cart";
 import { Categories, Product } from "../features/menu";
 import { TProduct } from "../types/types";
-import { authorize } from "../api/user";
-import { User } from "firebase/auth";
 import { ProductService, WishlistService } from "../lib/firestore-service";
+import { auth } from "../lib/firebase.config";
 
 export const menuLoader = async ({ request }: ActionFunctionArgs) => {
-  const user = (await authorize()) as User;
+  await auth.authStateReady();
+  const user = auth.currentUser;
+  if (!user) return redirect("/login");
 
   const url = new URL(request.url);
   const category = url.searchParams.get("category");

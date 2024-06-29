@@ -1,13 +1,17 @@
 import { Heart } from "lucide-react";
 import { TProduct } from "../../types/types";
+import { useFetcher } from "react-router-dom";
 
 type FavoritesButtonProps = { product: TProduct; isFavorite: boolean };
 
 const FavoritesButton = ({ product, isFavorite }: FavoritesButtonProps) => {
-  const favorite = isFavorite;
+  const fetcher = useFetcher();
+
+  const favorite =
+    (fetcher.formData?.get("favorite") || isFavorite.toString()) === "true";
 
   return (
-    <form method="post" action="/favorites">
+    <fetcher.Form method="post" action="/favorites">
       <button
         className="absolute right-2 top-2 grid aspect-square h-7 place-items-center rounded-full bg-white"
         name="favorite"
@@ -20,7 +24,7 @@ const FavoritesButton = ({ product, isFavorite }: FavoritesButtonProps) => {
         )}
       </button>
       <input name="product" readOnly hidden value={JSON.stringify(product)} />
-    </form>
+    </fetcher.Form>
   );
 };
 

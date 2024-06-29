@@ -16,11 +16,6 @@ import { UserService, WishlistService } from "../lib/firestore-service";
 import { TRegisterSchema } from "../schema/register-schema";
 import { TLoginSchema } from "../schema/login-schema";
 
-export const authorize = async () => {
-  await auth.authStateReady();
-  return auth.currentUser || redirect("/login");
-};
-
 export const register = async (data: TRegisterSchema) => {
   try {
     const { email, password, name } = data;

@@ -1,6 +1,13 @@
-import { Outlet, useNavigation } from "react-router-dom";
+/* eslint-disable react-refresh/only-export-components */
+import { Outlet, redirect, useNavigation } from "react-router-dom";
 import { authImage } from "../assets";
 import { LoadingOverlay } from "../components";
+import { auth } from "../lib/firebase.config";
+
+export const authLoader = async () => {
+  await auth.authStateReady();
+  return auth.currentUser ? redirect("/") : null;
+};
 
 const AuthPage = () => {
   const navigation = useNavigation();
