@@ -1,9 +1,12 @@
 import { TriangleAlert } from "lucide-react";
 import { Button, Card, Modal } from "../../components";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { deleteAccount } from "../../api/user";
+import { auth } from "../../lib/firebase.config";
+import { toast } from "react-toastify";
 
 const DeleteAccount = () => {
-  const handleDeleteAccount = async () => console.log("account deleted");
-
   return (
     <Card>
       <h3 className="font-bold text-dark-500 sm:text-lg">Delete account</h3>
@@ -24,17 +27,7 @@ const DeleteAccount = () => {
               The account will be deleted permanently
             </p>
           </div>
-          <div className="flex gap-4">
-            <Modal.CloseButton variant="gray" className="flex-1">
-              Cancel
-            </Modal.CloseButton>
-            <Modal.ActionButton
-              className="flex-1"
-              onClick={handleDeleteAccount}
-            >
-              Delete
-            </Modal.ActionButton>
-          </div>
+          <Buttons />
         </Modal.Container>
       </Modal>
     </Card>
@@ -42,3 +35,38 @@ const DeleteAccount = () => {
 };
 
 export default DeleteAccount;
+
+const Buttons = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleDeleteAccount = async () => {
+    setIsLoading(true);
+    try {
+      await deleteAccount(auth.currentUser!);
+      navigate("/login");
+      toast.success("User deleted successfully");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex gap-4">
+      <Modal.CloseButton variant="gray" className="flex-1" disabled={isLoading}>
+        Cancel
+      </Modal.CloseButton>
+      <Modal.ActionButton
+        className="flex-1"
+        onClick={handleDeleteAccount}
+        loading={isLoading}
+      >
+        Delete
+      </Modal.ActionButton>
+    </div>
+  );
+};

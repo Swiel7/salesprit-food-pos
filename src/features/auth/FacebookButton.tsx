@@ -1,15 +1,28 @@
-import { useTransition } from "react";
+import { useState } from "react";
 import Button, { ButtonProps } from "../../components/Button";
 import { loginWithOAuth } from "../../api/user";
 import { FacebookAuthProvider } from "firebase/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FacebookButton = (props: ButtonProps) => {
-  const [isLoading, startTransition] = useTransition();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const loginWithFacebook = async () => {
-    startTransition(() => {
-      loginWithOAuth(new FacebookAuthProvider());
-    });
+    setIsLoading(true);
+
+    try {
+      await loginWithOAuth(new FacebookAuthProvider());
+      toast.success("You have logged in successfully");
+      navigate("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

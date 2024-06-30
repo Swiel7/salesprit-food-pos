@@ -1,4 +1,3 @@
-import { redirect } from "react-router-dom";
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,
@@ -9,8 +8,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   updateProfile,
+  deleteUser,
+  User,
 } from "firebase/auth";
-import { toast } from "react-toastify";
 import { auth } from "../lib/firebase.config";
 import { UserService, WishlistService } from "../lib/firestore-service";
 import { TRegisterSchema } from "../schema/register-schema";
@@ -30,15 +30,10 @@ export const register = async (data: TRegisterSchema) => {
       UserService.create({ avatar: "", email, phone: "", name }, user.uid),
       WishlistService.create({ items: [] }, user.uid),
     ]);
-
-    toast.success("You have registered successfully");
-    return redirect("/");
   } catch (error) {
     if (error instanceof Error) {
-      toast.error(error.message);
+      throw new Error(error.message);
     }
-
-    return {};
   }
 };
 
@@ -48,15 +43,10 @@ export const login = async (data: TLoginSchema) => {
     if (!data.remember) await setPersistence(auth, browserSessionPersistence);
 
     await signInWithEmailAndPassword(auth, email, password);
-
-    toast.success("You have logged in successfully");
-    return redirect("/");
   } catch (error) {
     if (error instanceof Error) {
-      toast.error(error.message);
+      throw new Error(error.message);
     }
-
-    return {};
   }
 };
 
@@ -81,12 +71,23 @@ export const loginWithOAuth = async (
         ),
         WishlistService.create({ items: [] }, uid),
       ]);
-
-    toast.success("You have logged in successfully");
-    redirect("/");
   } catch (error) {
     if (error instanceof Error) {
-      toast.error(error.message);
+      throw new Error(error.message);
+    }
+  }
+};
+
+export const deleteAccount = async (user: User) => {
+  try {
+    await Promise.all([
+      deleteUser(user),
+      UserService.remove(user.uid),
+      WishlistService.remove(user.uid),
+    ]);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
     }
   }
 };

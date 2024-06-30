@@ -3,6 +3,7 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
+  redirect,
   useActionData,
   useNavigation,
 } from "react-router-dom";
@@ -14,6 +15,7 @@ import {
   registerSchema,
 } from "../../schema/register-schema";
 import { register } from "../../api/user";
+import { toast } from "react-toastify";
 
 type TInput = {
   name: string;
@@ -27,7 +29,17 @@ export const registerAction = async ({ request }: ActionFunctionArgs) => {
   const result = registerSchema.safeParse(formData);
 
   if (!result.success) return result.error.format();
-  return await register(result.data);
+
+  try {
+    await register(result.data);
+    toast.success("You have registered successfully");
+    return redirect("/");
+  } catch (error) {
+    if (error instanceof Error) {
+      toast.error(error.message);
+    }
+    return null;
+  }
 };
 
 const RegisterForm = () => {

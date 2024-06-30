@@ -3,6 +3,7 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
+  redirect,
   useActionData,
   useNavigation,
 } from "react-router-dom";
@@ -12,13 +13,24 @@ import GoogleButton from "./GoogleButton";
 import { anchorStyles } from "../../components/Anchor";
 import { TLoginErrors, loginSchema } from "../../schema/login-schema";
 import { login } from "../../api/user";
+import { toast } from "react-toastify";
 
 export const loginAction = async ({ request }: ActionFunctionArgs) => {
   const formData = Object.fromEntries(await request.formData());
   const result = loginSchema.safeParse(formData);
 
   if (!result.success) return result.error.format();
-  return await login(result.data);
+
+  try {
+    await login(result.data);
+    toast.success("You have logged in successfully");
+    return redirect("/");
+  } catch (error) {
+    if (error instanceof Error) {
+      toast.error(error.message);
+    }
+    return null;
+  }
 };
 
 const LoginForm = () => {

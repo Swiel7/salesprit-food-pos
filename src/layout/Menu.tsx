@@ -6,9 +6,11 @@ import {
   LucideIcon,
   User,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button, { buttonVariants } from "../components/Button";
 import { cx } from "class-variance-authority";
+import { signOut } from "firebase/auth";
+import { auth } from "../lib/firebase.config";
 
 type TRouteItem = { label: string; path: string; icon: LucideIcon };
 
@@ -20,7 +22,12 @@ const routes: TRouteItem[] = [
 ];
 
 const Menu = ({ onClick: handleClick }: { onClick?: () => void }) => {
-  const logout = () => console.log("logout");
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/login");
+  };
 
   return (
     <nav className="flex grow flex-col">
@@ -49,7 +56,7 @@ const Menu = ({ onClick: handleClick }: { onClick?: () => void }) => {
             variant="outlined"
             onClick={() => {
               handleClick?.();
-              logout();
+              handleLogout();
             }}
             className="w-full [&]:justify-start"
           >
