@@ -1,30 +1,54 @@
 import { Pencil } from "lucide-react";
 import { Button, Card, FileButton, Input } from "../../components";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
 import { TUser } from "../../types/types";
+import { TUserDataErrors } from "../../schema/user-data-schema";
+import { useState } from "react";
 
-const UserData = ({ user }: { user: TUser }) => {
+const UserData = () => {
+  const user = useLoaderData() as TUser;
+  const errors = useActionData() as TUserDataErrors;
+  const { state } = useNavigation();
+  const isSubmitting = state === "submitting";
+
   const { avatar, name, email, phone } = user;
+  const [image, setImage] = useState(avatar);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length)
+      setImage(URL.createObjectURL(e.target.files[0]));
+  };
 
   return (
     <Card className="space-y-5">
       <h3 className="font-bold text-dark-500 sm:text-lg">
         Personal information
       </h3>
-      <form className="space-y-5 sm:space-y-6">
+      <Form
+        method="post"
+        encType="multipart/form-data"
+        className="space-y-5 sm:space-y-6"
+      >
         <div className="relative inline-block">
           <img
-            src={avatar}
+            src={image}
             alt="Avatar"
             className="h-24 w-24 rounded-full object-cover"
             referrerPolicy="no-referrer"
           />
           <FileButton
             size="sm"
+            disabled={isSubmitting}
             className="absolute bottom-0 right-0 !h-8 !rounded-full"
-            loading={false}
             inputProps={{
+              name: "avatar",
               accept: "image/*",
-              onChange: () => console.log("avatar changed"),
+              onChange: handleImageChange,
             }}
           >
             <Pencil size={16} />
@@ -36,8 +60,8 @@ const UserData = ({ user }: { user: TUser }) => {
             label="Name"
             autoComplete="name"
             defaultValue={name}
-            // disabled={}
-            // error={}
+            disabled={isSubmitting}
+            error={errors?.name?._errors}
           />
           <Input
             type="email"
@@ -45,8 +69,8 @@ const UserData = ({ user }: { user: TUser }) => {
             label="Email address"
             autoComplete="email"
             defaultValue={email}
-            // disabled={}
-            // error={}
+            disabled={isSubmitting}
+            error={errors?.email?._errors}
           />
           <Input
             type="tel"
@@ -54,12 +78,14 @@ const UserData = ({ user }: { user: TUser }) => {
             label="Phone number"
             autoComplete="tel"
             defaultValue={phone}
-            // disabled={}
-            // error={}
+            disabled={isSubmitting}
+            error={errors?.phone?._errors}
           />
         </div>
-        <Button>Save changes</Button>
-      </form>
+        <Button disabled={isSubmitting} name="type" value="data">
+          Save changes
+        </Button>
+      </Form>
     </Card>
   );
 };

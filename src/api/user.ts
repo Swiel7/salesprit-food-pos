@@ -10,11 +10,17 @@ import {
   updateProfile,
   deleteUser,
   User,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
 } from "firebase/auth";
 import { auth } from "../lib/firebase.config";
 import { UserService, WishlistService } from "../lib/firestore-service";
 import { TRegisterSchema } from "../schema/register-schema";
 import { TLoginSchema } from "../schema/login-schema";
+import { TUserDataSchema } from "../schema/user-data-schema";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const register = async (data: TRegisterSchema) => {
   try {
@@ -85,6 +91,56 @@ export const deleteAccount = async (user: User) => {
       UserService.remove(user.uid),
       WishlistService.remove(user.uid),
     ]);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+};
+
+export const updateUserData = async (data: TUserDataSchema) => {
+  const { name, email, phone, avatar } = data;
+  const user = auth.currentUser!;
+  let downloadURL;
+
+  try {
+    if (avatar?.name) {
+      const storage = getStorage();
+      const storageRef = ref(storage, "avatars/" + user.uid);
+      const uploadTask = await uploadBytes(storageRef, avatar);
+      downloadURL = await getDownloadURL(uploadTask.ref);
+    }
+
+    await Promise.all([
+      updateProfile(user, {
+        photoURL: downloadURL || user.photoURL,
+        displayName: name,
+      }),
+      updateEmail(user, email),
+      UserService.update(user.uid, {
+        name,
+        email,
+        phone,
+        avatar: downloadURL || user.photoURL,
+      }),
+    ]);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+  }
+};
+
+export const changePassword = async (
+  curPassword: string,
+  newPassword: string,
+) => {
+  const user = auth.currentUser!;
+  const credential = EmailAuthProvider.credential(user.email!, curPassword);
+
+  try {
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(auth.currentUser!, newPassword);
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(error.message);

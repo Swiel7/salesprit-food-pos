@@ -12,7 +12,7 @@ const FileButton = ({ inputProps, ...buttonProps }: FileButtonProps) => {
 
   return (
     <>
-      <IconButton onClick={handleClick} {...buttonProps} />
+      <IconButton onClick={handleClick} type="button" {...buttonProps} />
       <input type="file" hidden ref={inputRef} {...inputProps} />
     </>
   );

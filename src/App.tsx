@@ -15,6 +15,7 @@ import { loginAction } from "./features/auth/LoginForm";
 import { menuLoader } from "./pages/MenuPage";
 import { favoritesLoader, favoritesAction } from "./pages/FavoritesPage";
 import { authLoader } from "./pages/AuthPage";
+import { accountAction, accountLoader } from "./pages/AccountPage";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,8 @@ const router = createBrowserRouter([
         path: "/account",
         element: <AccountPage />,
         handle: { title: "Account" },
+        loader: accountLoader,
+        action: accountAction,
       },
     ],
   },
