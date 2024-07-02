@@ -1,34 +1,26 @@
+/* eslint-disable react-refresh/only-export-components */
 import { MoveLeft } from "lucide-react";
 import { TOrder } from "../types/types";
-import { Link } from "react-router-dom";
+import {
+  ActionFunctionArgs,
+  Link,
+  json,
+  useLoaderData,
+} from "react-router-dom";
 import { buttonVariants } from "../components/Button";
 import { OrderInfo, OrderItems } from "../features/order";
+import { OrderService } from "../lib/firestore-service";
+
+export const orderDetailsLoader = async ({ params }: ActionFunctionArgs) => {
+  const orderId = params.orderId!;
+  const order = await OrderService.getOne(orderId);
+
+  if (!order) throw json("Not found", { status: 404 });
+  return order;
+};
 
 const OrderDetailsPage = () => {
-  const order = {
-    id: "#3PRGwWDewH",
-    // id: "#3PRGwWDewHUrhCCR1iqd7T37",
-    customer: {
-      name: "Jan Kowalski",
-      email: "jkowalski@gmail.com",
-      id: "gffgty",
-      phone: "+48566565466",
-    },
-    date: 1718296113000,
-    paymentMethod: "card",
-    status: "complete",
-    total: 9959,
-    address: "DFJfg 4, Rgffg, 35-100, PL",
-    items: Array.from({ length: 5 }, (_, i) => ({
-      id: i.toString(),
-      title: "Brown eggs",
-      category: "dairy",
-      image: "https://i.ibb.co/nn3t0HR/Raw-Organic-Brown-Eggs-in-a-Basket.jpg",
-      price: 2810,
-      rating: 4.2,
-      quantity: 1,
-    })),
-  } as TOrder;
+  const order = useLoaderData() as TOrder;
 
   return (
     <section className="flex min-h-0 flex-col gap-2 p-5 sm:gap-4 xl:p-6">

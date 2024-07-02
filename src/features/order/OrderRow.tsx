@@ -4,8 +4,12 @@ import { TOrder } from "../../types/types";
 import { formatPrice } from "../../utils/helpers";
 import { Link } from "react-router-dom";
 import { buttonVariants } from "../../components/Button";
+import Stripe from "stripe";
 
-const orderStatuses: Record<string, "green" | "red" | "orange"> = {
+const orderStatuses: Record<
+  Stripe.Checkout.Session.Status,
+  "green" | "red" | "orange"
+> = {
   complete: "green",
   expired: "red",
   open: "orange",

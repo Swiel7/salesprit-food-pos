@@ -16,6 +16,8 @@ import { menuLoader } from "./pages/MenuPage";
 import { favoritesLoader, favoritesAction } from "./pages/FavoritesPage";
 import { authLoader } from "./pages/AuthPage";
 import { accountAction, accountLoader } from "./pages/AccountPage";
+import { ordersLoader } from "./pages/OrdersPage";
+import { orderDetailsLoader } from "./pages/OrderDetailsPage";
 
 const router = createBrowserRouter([
   {
@@ -32,11 +34,13 @@ const router = createBrowserRouter([
         path: "/orders",
         element: <OrdersPage />,
         handle: { title: "Orders" },
+        loader: ordersLoader,
       },
       {
         path: "/orders/:orderId",
         element: <OrderDetailsPage />,
         handle: { title: "Order details" },
+        loader: orderDetailsLoader,
       },
       {
         path: "/favorites",

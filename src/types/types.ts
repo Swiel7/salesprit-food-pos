@@ -1,3 +1,5 @@
+import Stripe from "stripe";
+
 export type TProduct = {
   id: string;
   title: string;
@@ -24,7 +26,7 @@ export type TOrder = {
   customer: Omit<TUser, "avatar">;
   items: TCartItem[];
   total: number;
-  status: string;
+  status: Stripe.Checkout.Session.Status;
   paymentMethod: string;
   date: number;
   address: string;

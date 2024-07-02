@@ -4,6 +4,7 @@ import Stripe from "stripe";
 import cors from "cors";
 import { TCartItem, TUser } from "./src/types/types";
 import { ProductService } from "./src/lib/firestore-service";
+import { createOrder } from "./src/api/order";
 
 dotenv.config();
 const app = express();
@@ -93,7 +94,7 @@ app.post(
         },
       );
 
-      // create order
+      await createOrder(session);
     }
 
     res.send().end();
