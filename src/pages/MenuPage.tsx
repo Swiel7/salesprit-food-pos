@@ -16,8 +16,10 @@ export const menuLoader = async ({ request }: ActionFunctionArgs) => {
   const category = url.searchParams.get("category");
   const search = url.searchParams.get("search");
 
-  const wishlist = await WishlistService.getOne(user.uid);
-  const products = await ProductService.getAll();
+  const [wishlist, products] = await Promise.all([
+    WishlistService.getOne(user.uid),
+    ProductService.getAll(),
+  ]);
 
   if (search || (category && category !== "all")) {
     const filteredProducts = products.filter((p) => {
@@ -59,7 +61,7 @@ const MenuPage = () => {
             ))}
           </ul>
         ) : (
-          <p className="mt-4 text-center text-dark-500">
+          <p className="text-dark-500">
             No products were found matching your selection
           </p>
         )}

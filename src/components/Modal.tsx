@@ -12,35 +12,29 @@ import Button, { ButtonProps } from "./Button";
 import { cx } from "class-variance-authority";
 
 type ModalContextType = {
-  isModalOpen: boolean;
-  openModal: () => void;
-  closeModal: () => void;
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
 };
 
 export const ModalContext = createContext<ModalContextType>(
   {} as ModalContextType,
 );
 
-type ModalProps = { children: ReactNode; isOpen?: boolean };
-
-const Modal = ({ children, isOpen = false }: ModalProps) => {
-  const {
-    open: openModal,
-    close: closeModal,
-    isOpen: isModalOpen,
-  } = useToggle(isOpen);
+const Modal = ({ children }: { children: ReactNode }) => {
+  const { open, close, isOpen } = useToggle(false);
 
   useEffect(() => {
-    if (isModalOpen) document.body.style.overflow = "hidden";
+    if (isOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "unset";
 
     return () => {
       document.body.style.overflow = "unset";
     };
-  }, [isModalOpen]);
+  }, [isOpen]);
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal, isModalOpen }}>
+    <ModalContext.Provider value={{ open, close, isOpen }}>
       {children}
     </ModalContext.Provider>
   );
@@ -49,21 +43,21 @@ const Modal = ({ children, isOpen = false }: ModalProps) => {
 export default Modal;
 
 const Trigger = ({ children }: { children: ReactElement<ButtonProps> }) => {
-  const { openModal } = useContext(ModalContext);
+  const { open } = useContext(ModalContext);
 
-  return <>{cloneElement(children, { onClick: openModal })}</>;
+  return <>{cloneElement(children, { onClick: open })}</>;
 };
 
 const Container = (props: React.ComponentPropsWithoutRef<"dialog">) => {
   const { className, ...restProps } = props;
 
-  const { isModalOpen } = useContext(ModalContext);
+  const { isOpen } = useContext(ModalContext);
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (isModalOpen) ref.current?.showModal();
+    if (isOpen) ref.current?.showModal();
     else ref.current?.close();
-  }, [isModalOpen]);
+  }, [isOpen]);
 
   return (
     <dialog
@@ -78,17 +72,17 @@ const Container = (props: React.ComponentPropsWithoutRef<"dialog">) => {
 };
 
 const CloseButton = (props: Omit<ButtonProps, "onClick">) => {
-  const { closeModal } = useContext(ModalContext);
+  const { close } = useContext(ModalContext);
 
-  return <Button onClick={closeModal} {...props} />;
+  return <Button onClick={close} {...props} />;
 };
 
 const ActionButton = ({ onClick, ...restProps }: ButtonProps) => {
-  const { closeModal } = useContext(ModalContext);
+  const { close } = useContext(ModalContext);
 
   const handleClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     await onClick?.(e);
-    closeModal();
+    close();
   };
 
   return <Button onClick={handleClick} {...restProps} />;

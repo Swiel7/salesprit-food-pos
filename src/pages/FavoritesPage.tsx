@@ -1,7 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { ActionFunctionArgs, redirect, useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
-import { SearchBar } from "../components";
 import { Product } from "../features/menu";
 import { auth } from "../lib/firebase.config";
 import { WishlistService } from "../lib/firestore-service";
@@ -47,9 +46,6 @@ const FavoritesPage = () => {
 
   return (
     <section className="flex min-h-0 flex-col gap-6 p-5 xl:p-6">
-      <div className="max-w-[600px]">
-        <SearchBar />
-      </div>
       {products.length > 0 ? (
         <ul className="hide-scrollbar -m-3 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4 overflow-y-auto p-3">
           {products.map((product) => (
@@ -59,7 +55,7 @@ const FavoritesPage = () => {
           ))}
         </ul>
       ) : (
-        <p className="mt-4 text-center text-dark-500">Your wishlist is empty</p>
+        <p className="text-dark-500">Your wishlist is empty</p>
       )}
     </section>
   );

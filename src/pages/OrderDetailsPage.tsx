@@ -15,7 +15,7 @@ export const orderDetailsLoader = async ({ params }: ActionFunctionArgs) => {
   const orderId = params.orderId!;
   const order = await OrderService.getOne(orderId);
 
-  if (!order) throw json("Not found", { status: 404 });
+  if (!order) throw json("", { status: 404, statusText: "Not found" });
   return order;
 };
 
