@@ -1,9 +1,9 @@
 import { nanoid } from "@reduxjs/toolkit";
 import Stripe from "stripe";
 import { TCartItem, TOrder } from "../types/types";
-import { OrderService } from "../lib/firestore-service";
 import { collection, getDocs, where, query } from "firebase/firestore";
-import { db } from "../lib/firebase.config";
+import { OrderService } from "../lib/firestore-service.js";
+import { db } from "../lib/firebase.config.js";
 
 export const createOrder = async (session: Stripe.Checkout.Session) => {
   const paymentIntent = session.payment_intent as Stripe.PaymentIntent;

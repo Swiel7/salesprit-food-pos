@@ -5,8 +5,6 @@ import { useAppSelector } from "../../lib/store";
 import { UserService } from "../../lib/firestore-service";
 import { auth } from "../../lib/firebase.config";
 
-const url = import.meta.env.VITE_SERVER_URL;
-
 const CheckoutButton = () => {
   const { items } = useAppSelector((store) => store.cart);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -16,7 +14,7 @@ const CheckoutButton = () => {
       setIsLoading(true);
       const user = await UserService.getOne(auth.currentUser?.uid as string);
 
-      const response = await fetch(`${url}/create-checkout-session`, {
+      const response = await fetch("api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cartItems: items, user }),

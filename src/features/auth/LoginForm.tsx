@@ -8,7 +8,6 @@ import {
   useNavigation,
 } from "react-router-dom";
 import { Button, Checkbox, Input, PasswordInput } from "../../components";
-import FacebookButton from "./FacebookButton";
 import GoogleButton from "./GoogleButton";
 import { anchorStyles } from "../../components/Anchor";
 import { TLoginErrors, loginSchema } from "../../schema/login-schema";
@@ -79,10 +78,7 @@ const LoginForm = () => {
       <span className="flex items-center text-sm text-dark-500 before:mr-2 before:inline-block before:h-px before:grow before:bg-gray-200 after:ml-2 after:inline-block after:h-px after:grow after:bg-gray-200 sm:text-base">
         Continue with
       </span>
-      <div className="flex gap-5">
-        <GoogleButton className="flex-1" disabled={isSubmitting} />
-        <FacebookButton className="flex-1" disabled={isSubmitting} />
-      </div>
+      <GoogleButton className="w-full" disabled={isSubmitting} />
       <p className="text-sm text-dark-500 sm:text-base">
         Don't have an account?{" "}
         <Link to="/register" className={anchorStyles}>

@@ -1,5 +1,4 @@
 import {
-  FacebookAuthProvider,
   GoogleAuthProvider,
   browserSessionPersistence,
   createUserWithEmailAndPassword,
@@ -56,11 +55,9 @@ export const login = async (data: TLoginSchema) => {
   }
 };
 
-export const loginWithOAuth = async (
-  provider: FacebookAuthProvider | GoogleAuthProvider,
-) => {
+export const loginWithGoogle = async () => {
   try {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithPopup(auth, new GoogleAuthProvider());
     const isNewUser = getAdditionalUserInfo(result)?.isNewUser;
     const { photoURL, email, phoneNumber, displayName, uid } = result.user;
 

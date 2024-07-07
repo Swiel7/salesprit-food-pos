@@ -1,19 +1,18 @@
 import { useState } from "react";
 import Button, { ButtonProps } from "../../components/Button";
-import { loginWithOAuth } from "../../api/user";
-import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { loginWithGoogle } from "../../api/user";
 
 const GoogleButton = (props: ButtonProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const loginWithGoogle = async () => {
+  const handleClick = async () => {
     setIsLoading(true);
 
     try {
-      await loginWithOAuth(new GoogleAuthProvider());
+      await loginWithGoogle();
       toast.success("You have logged in successfully");
       navigate("/");
     } catch (error) {
@@ -29,7 +28,7 @@ const GoogleButton = (props: ButtonProps) => {
     <Button
       variant="outlined"
       type="button"
-      onClick={loginWithGoogle}
+      onClick={handleClick}
       loading={isLoading}
       {...props}
     >
